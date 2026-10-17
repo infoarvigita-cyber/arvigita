@@ -1,11 +1,11 @@
-import type { Viewport } from 'next';
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-};
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#061d30",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://arvigita.lt"),
@@ -96,12 +96,6 @@ export const metadata: Metadata = {
     shortcut: "/arvigita-logo.png",
     apple: "/arvigita-logo.png",
   },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  themeColor: "#061d30",
 };
 
 export default function RootLayout({
