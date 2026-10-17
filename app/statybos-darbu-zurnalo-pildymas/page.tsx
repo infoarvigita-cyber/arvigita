@@ -1,27 +1,20 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import type { Metadata, Viewport } from 'next';
+
+// Mobiliesiems įrenginiams būtini nustatymai
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
+export const metadata: Metadata = {
+  title: 'Statybos darbų žurnalo pildymas | MB „Arvigita“',
+  description: 'Profesionalus elektroninio statybos darbų žurnalo pildymas, tvarkymas ir konsultacijos. Užtikriname atitiktį LR teisės aktams bei sklandų statinio pridavimo procesą.',
+};
 
 export default function StatybosZurnaloPildymas() {
-  const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const subject = encodeURIComponent(`Užklausa dėl žurnalo pildymo: ${name}`);
-    const body = encodeURIComponent(
-      `Vardas / Įmonė: ${name}\n` +
-      `Kontaktai: ${contact}\n\n` +
-      `Žinutė / Objekto info:\n${message}`
-    );
-
-    // Atsidaro vartotojo el. pašto programa su paruošta žinute
-    window.location.href = `mailto:info.arvigita@gmail.com?subject=${subject}&body=${body}`;
-  };
-
   return (
     <div className="public-site">
       {/* HERO SECTION */}
@@ -177,109 +170,56 @@ export default function StatybosZurnaloPildymas() {
         </div>
       </section>
 
-      {/* KONTAKTAI IR UŽKLAUSOS FORMA */}
+      {/* KONTAKTAI */}
       <section id="kontaktai" className="section" style={{ background: 'var(--ar-navy-950)', color: '#ffffff' }}>
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 50px' }}>
             <span className="section-label section-label-gold">SUSISIEKITE</span>
             <h2 style={{ color: '#ffffff' }}>Turite klausimų ar norite gauti pasiūlymą?</h2>
             <p style={{ color: '#b9cad6', marginTop: '14px', fontSize: '16px' }}>
-              Užpildykite užklausą arba susisiekite tiesiogiai nurodytais kontaktais.
+              Susisiekite su mumis tiesiogiai el. paštu arba telefonu.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'start' }}>
-            {/* KONTAKTŲ KORTELĖ */}
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <div style={{
               background: 'var(--ar-navy-900)',
               padding: '36px',
               borderRadius: '16px',
               border: '1px solid rgba(255, 255, 255, 0.12)',
-              boxShadow: 'var(--ar-shadow)'
+              boxShadow: 'var(--ar-shadow)',
+              textAlign: 'center'
             }}>
-              <h3 style={{ color: 'var(--ar-gold-450)', fontSize: '22px', fontWeight: '800', marginBottom: '24px' }}>
+              <h3 style={{ color: 'var(--ar-gold-450)', fontSize: '24px', fontWeight: '800', marginBottom: '24px' }}>
                 MB „Arvigita“
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '16px', color: '#d6e3ec' }}>
-                <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ color: 'var(--ar-gold-450)', fontSize: '20px' }}>📞</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', fontSize: '18px', color: '#d6e3ec' }}>
+                <p style={{ margin: 0 }}>
+                  📞 Telefonas:{' '}
                   <a href="tel:+37062633463" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '700' }}>
                     +370 626 33463
                   </a>
                 </p>
-                <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ color: 'var(--ar-gold-450)', fontSize: '20px' }}>✉️</span>
+                <p style={{ margin: 0 }}>
+                  ✉️ El. paštas:{' '}
                   <a href="mailto:info.arvigita@gmail.com" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '700' }}>
                     info.arvigita@gmail.com
                   </a>
                 </p>
-                <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ color: 'var(--ar-gold-450)', fontSize: '20px' }}>🌐</span>
+                <p style={{ margin: 0 }}>
+                  🌐 Svetainė:{' '}
                   <Link href="/" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '700' }}>
                     www.arvigita.lt
                   </Link>
                 </p>
               </div>
+
+              <div style={{ marginTop: '30px' }}>
+                <a href="mailto:info.arvigita@gmail.com?subject=U%C5%BEklausa%20d%C4%97l%20statybos%20%C5%BEurnalo" className="button button-gold" style={{ width: '100%' }}>
+                  Rašyti el. laišką
+                </a>
+              </div>
             </div>
-
-            {/* FORMA */}
-            <form onSubmit={handleSubmit} style={{
-              background: '#ffffff',
-              padding: '36px',
-              borderRadius: '16px',
-              color: 'var(--ar-text)',
-              boxShadow: 'var(--ar-shadow)'
-            }}>
-              <div className="form-group" style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
-                  Vardas / Įmonė
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Jūsų vardas arba įmonė"
-                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
-                />
-              </div>
-
-              <div className="form-group" style={{ marginBottom: '16px' }}>
-                <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
-                  Telefonas arba el. paštas
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                  placeholder="+370 626 33463 arba info@..."
-                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
-                />
-              </div>
-
-              <div className="form-group" style={{ marginBottom: '20px' }}>
-                <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
-                  Pastabos / Objekto informacija
-                </label>
-                <textarea
-                  required
-                  rows={3}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Trumpai aprašykite objektą..."
-                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none', resize: 'vertical' }}
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="button button-gold"
-                style={{ width: '100%', cursor: 'pointer' }}
-              >
-                Siųsti užklausą
-              </button>
-            </form>
           </div>
         </div>
       </section>
