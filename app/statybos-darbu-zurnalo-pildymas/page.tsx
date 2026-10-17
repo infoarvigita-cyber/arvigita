@@ -4,36 +4,23 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 export default function StatybosZurnaloPildymas() {
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [message, setMessage] = useState('');
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('submitting');
+    
+    const subject = encodeURIComponent(`Užklausa dėl žurnalo pildymo: ${name}`);
+    const body = encodeURIComponent(
+      `Vardas / Įmonė: ${name}\n` +
+      `Kontaktai: ${contact}\n\n` +
+      `Žinutė / Objekto info:\n${message}`
+    );
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    // Naudojamas nemokamas Web3Forms servisas, kuriam nereikia jokio ID – tiesiogiai į jūsų el. paštą
-    formData.append('access_key', '6584285e-d52a-43cf-8ef3-703a3d5e23ba'); // Standartinis viešas raktas arba įrašykite savo iš web3forms.com
-
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        setStatus('success');
-        form.reset();
-      } else {
-        setStatus('error');
-      }
-    } catch {
-      setStatus('error');
-    }
-  }
+    // Atsidaro vartotojo el. pašto programa su paruošta žinute
+    window.location.href = `mailto:info.arvigita@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   return (
     <div className="public-site">
@@ -243,45 +230,15 @@ export default function StatybosZurnaloPildymas() {
               color: 'var(--ar-text)',
               boxShadow: 'var(--ar-shadow)'
             }}>
-              <input type="hidden" name="email_to" value="info.arvigita@gmail.com" />
-              <input type="hidden" name="from_name" value="Svetainės Užklausa (Arvigita.lt)" />
-
-              {status === 'success' && (
-                <div style={{
-                  padding: '14px',
-                  marginBottom: '20px',
-                  borderRadius: '8px',
-                  background: '#edf9f5',
-                  color: '#17624f',
-                  fontWeight: '700',
-                  textAlign: 'center'
-                }}>
-                  ✓ Dėkojame! Jūsų užklausa sėkmingai išsiųsta. Susisieksime greitai.
-                </div>
-              )}
-
-              {status === 'error' && (
-                <div style={{
-                  padding: '14px',
-                  marginBottom: '20px',
-                  borderRadius: '8px',
-                  background: '#fef2f2',
-                  color: '#991b1b',
-                  fontWeight: '700',
-                  textAlign: 'center'
-                }}>
-                  ✕ Klaida siunčiant. Bandykite dar kartą arba skambinkite telefonu.
-                </div>
-              )}
-
               <div className="form-group" style={{ marginBottom: '16px' }}>
                 <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
                   Vardas / Įmonė
                 </label>
                 <input
                   type="text"
-                  name="name"
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="Jūsų vardas arba įmonė"
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
                 />
@@ -293,8 +250,9 @@ export default function StatybosZurnaloPildymas() {
                 </label>
                 <input
                   type="text"
-                  name="contact_info"
                   required
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                   placeholder="+370 626 33463 arba info@..."
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
                 />
@@ -305,22 +263,21 @@ export default function StatybosZurnaloPildymas() {
                   Pastabos / Objekto informacija
                 </label>
                 <textarea
-                  name="message"
                   required
                   rows={3}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   placeholder="Trumpai aprašykite objektą..."
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none', resize: 'vertical' }}
                 ></textarea>
               </div>
 
-              {/* SVALBU: type="submit" AKTYVUJA SIUNTIMĄ */}
               <button
                 type="submit"
-                disabled={status === 'submitting'}
                 className="button button-gold"
-                style={{ width: '100%', opacity: status === 'submitting' ? 0.7 : 1, cursor: 'pointer' }}
+                style={{ width: '100%', cursor: 'pointer' }}
               >
-                {status === 'submitting' ? 'Siunčiama...' : 'Siųsti užklausą'}
+                Siųsti užklausą
               </button>
             </form>
           </div>
