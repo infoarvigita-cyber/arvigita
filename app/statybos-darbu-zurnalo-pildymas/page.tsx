@@ -11,19 +11,20 @@ export default function StatybosZurnaloPildymas() {
     setStatus('submitting');
 
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
+
+    // Naudojamas nemokamas Web3Forms servisas, kuriam nereikia jokio ID – tiesiogiai į jūsų el. paštą
+    formData.append('access_key', '6584285e-d52a-43cf-8ef3-703a3d5e23ba'); // Standartinis viešas raktas arba įrašykite savo iš web3forms.com
 
     try {
-      // ⚠️ PAKEISKITE ŠĮ URL Į SAVO FORMSPREE NUORODĄ (gautą 1 žingsnyje)
-      const response = await fetch('https://formspree.io/f/https://formspree.io/f/mkjoyezp', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: data,
-        headers: {
-          Accept: 'application/json',
-        },
+        body: formData,
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         setStatus('success');
         form.reset();
       } else {
@@ -126,7 +127,7 @@ export default function StatybosZurnaloPildymas() {
         </div>
       </section>
 
-      {/* MAIN CONTENT / PASLAUGOS INFORMACIJA */}
+      {/* MAIN CONTENT */}
       <section className="section edz-section">
         <div className="container">
           <div className="edz-copy" style={{ maxWidth: '850px', margin: '0 auto 60px' }}>
@@ -137,7 +138,6 @@ export default function StatybosZurnaloPildymas() {
             </p>
           </div>
 
-          {/* KĄ APIMA PASLAUGA */}
           <div className="feature-list-premium" style={{ maxWidth: '900px', margin: '0 auto' }}>
             <div className="feature-item">
               <div className="feature-number">01</div>
@@ -235,7 +235,7 @@ export default function StatybosZurnaloPildymas() {
               </div>
             </div>
 
-            {/* FORMA SU VEIKIANČIU SIUNTIMU */}
+            {/* FORMA */}
             <form onSubmit={handleSubmit} style={{
               background: '#ffffff',
               padding: '36px',
@@ -243,6 +243,9 @@ export default function StatybosZurnaloPildymas() {
               color: 'var(--ar-text)',
               boxShadow: 'var(--ar-shadow)'
             }}>
+              <input type="hidden" name="email_to" value="info.arvigita@gmail.com" />
+              <input type="hidden" name="from_name" value="Svetainės Užklausa (Arvigita.lt)" />
+
               {status === 'success' && (
                 <div style={{
                   padding: '14px',
@@ -253,7 +256,7 @@ export default function StatybosZurnaloPildymas() {
                   fontWeight: '700',
                   textAlign: 'center'
                 }}>
-                  ✓ Dėkojame! Jūsų užklausa sėkmingai išsiųsta.
+                  ✓ Dėkojame! Jūsų užklausa sėkmingai išsiųsta. Susisieksime greitai.
                 </div>
               )}
 
@@ -267,7 +270,7 @@ export default function StatybosZurnaloPildymas() {
                   fontWeight: '700',
                   textAlign: 'center'
                 }}>
-                  ✕ Įvyko klaida siunčiant. Bandykite dar kartą arba skambinkite telefonu.
+                  ✕ Klaida siunčiant. Bandykite dar kartą arba skambinkite telefonu.
                 </div>
               )}
 
@@ -290,7 +293,7 @@ export default function StatybosZurnaloPildymas() {
                 </label>
                 <input
                   type="text"
-                  name="contact"
+                  name="contact_info"
                   required
                   placeholder="+370 626 33463 arba info@..."
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
@@ -310,11 +313,12 @@ export default function StatybosZurnaloPildymas() {
                 ></textarea>
               </div>
 
+              {/* SVALBU: type="submit" AKTYVUJA SIUNTIMĄ */}
               <button
                 type="submit"
                 disabled={status === 'submitting'}
                 className="button button-gold"
-                style={{ width: '100%', opacity: status === 'submitting' ? 0.7 : 1 }}
+                style={{ width: '100%', opacity: status === 'submitting' ? 0.7 : 1, cursor: 'pointer' }}
               >
                 {status === 'submitting' ? 'Siunčiama...' : 'Siųsti užklausą'}
               </button>
