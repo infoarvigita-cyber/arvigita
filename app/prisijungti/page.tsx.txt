@@ -1,0 +1,185 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { createClient } from "../uzklausa/lib/supabase/client";
+
+export default function PrisijungtiPage() {
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setErrorMessage("");
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+
+    const email = String(formData.get("email") ?? "")
+      .trim()
+      .toLowerCase();
+
+    const password = String(formData.get("password") ?? "");
+
+    const supabase = createClient();
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setIsSubmitting(false);
+      setErrorMessage(
+        "Prisijungti nepavyko. Patikrinkite el. paštą ir slaptažodį."
+      );
+      return;
+    }
+
+    window.location.href = "/savitarnos";
+  }
+
+  return (
+    <main>
+      <header className="site-header">
+        <div className="container header-inner">
+          <a className="brand" href="/">
+            MB „Arvigita“
+          </a>
+
+          <nav className="main-nav" aria-label="Pagrindinė navigacija">
+            <a href="/">Pradžia</a>
+            <a href="/uzklausa">Pateikti užklausą</a>
+          </nav>
+        </div>
+      </header>
+
+      <section className="auth-page">
+        <div className="auth-card">
+          <span className="section-label">KLIENTŲ SAVITARNA</span>
+
+          <h1>Prisijungti</h1>
+
+          <p className="auth-intro">
+            Prisijunkite prie MB „Arvigita“ klientų savitarnos.
+          </p>
+
+          {errorMessage && (
+            <div className="message message-error" role="alert">
+              {errorMessage}
+            </div>
+          )}
+
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">El. paštas</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">Slaptažodis</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="current-password"
+                required
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <button
+              className="button button-primary auth-submit"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Jungiamasi..." : "Prisijungti"}
+            </button>
+          </form>
+
+          <div className="auth-links">
+            <a href="/pamirso-slaptazodi">
+              Pamiršote slaptažodį?
+            </a>
+          </div>
+
+          <a className="back-link" href="/">
+            ← Grįžti į pradžią
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+
+export async function createClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) => {
+              cookieStore.set(name, value, options);
+            });
+          } catch {
+            // Server Component negali visada rašyti slapukų.
+            // Sesijos atnaujinimą tvarko proxy.
+          }
+        },
+      },
+    }
+  );
+}import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
+
+export async function updateSession(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({
+    request,
+  });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => {
+            request.cookies.set(name, value);
+          });
+
+          supabaseResponse = NextResponse.next({
+            request,
+          });
+
+          cookiesToSet.forEach(({ name, value, options }) => {
+            supabaseResponse.cookies.set(name, value, options);
+          });
+        },
+      },
+    }
+  );
+
+  await supabase.auth.getClaims();
+
+  return supabaseResponse;
+}
