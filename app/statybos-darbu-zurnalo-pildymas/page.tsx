@@ -1,20 +1,39 @@
-import React from 'react';
-import Link from 'next/link';
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Statybos darbų žurnalo pildymas | MB „Arvigita“',
-  description: 'Profesionalus elektroninio statybos darbų žurnalo pildymas, tvarkymas ir konsultacijos. Užtikriname atitiktį LR teisės aktams bei sklandų statinio pridavimo procesą.',
-  keywords: [
-    'statybos darbu zurnalo pildymas',
-    'elektroninis statybos darbu zurnalas',
-    'statybos dokumentacijos tvarkymas',
-    'InfoStatyba zurnalas',
-    'statinio pridavimas'
-  ],
-};
+import React, { useState } from 'react';
+import Link from 'next/link';
 
 export default function StatybosZurnaloPildymas() {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus('submitting');
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      // ⚠️ PAKEISKITE ŠĮ URL Į SAVO FORMSPREE NUORODĄ (gautą 1 žingsnyje)
+      const response = await fetch('https://formspree.io/f/https://formspree.io/f/mkjoyezp', {
+        method: 'POST',
+        body: data,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        form.reset();
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  }
+
   return (
     <div className="public-site">
       {/* HERO SECTION */}
@@ -107,7 +126,7 @@ export default function StatybosZurnaloPildymas() {
         </div>
       </section>
 
-      {/* MAIN CONTENT / PASLAUGOS INFROMAIJA */}
+      {/* MAIN CONTENT / PASLAUGOS INFORMACIJA */}
       <section className="section edz-section">
         <div className="container">
           <div className="edz-copy" style={{ maxWidth: '850px', margin: '0 auto 60px' }}>
@@ -118,7 +137,7 @@ export default function StatybosZurnaloPildymas() {
             </p>
           </div>
 
-          {/* KĄ APIMA PASLAUGA (FEATURE LIST) */}
+          {/* KĄ APIMA PASLAUGA */}
           <div className="feature-list-premium" style={{ maxWidth: '900px', margin: '0 auto' }}>
             <div className="feature-item">
               <div className="feature-number">01</div>
@@ -216,20 +235,50 @@ export default function StatybosZurnaloPildymas() {
               </div>
             </div>
 
-            {/* FORMA */}
-            <form style={{
+            {/* FORMA SU VEIKIANČIU SIUNTIMU */}
+            <form onSubmit={handleSubmit} style={{
               background: '#ffffff',
               padding: '36px',
               borderRadius: '16px',
               color: 'var(--ar-text)',
               boxShadow: 'var(--ar-shadow)'
             }}>
+              {status === 'success' && (
+                <div style={{
+                  padding: '14px',
+                  marginBottom: '20px',
+                  borderRadius: '8px',
+                  background: '#edf9f5',
+                  color: '#17624f',
+                  fontWeight: '700',
+                  textAlign: 'center'
+                }}>
+                  ✓ Dėkojame! Jūsų užklausa sėkmingai išsiųsta.
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div style={{
+                  padding: '14px',
+                  marginBottom: '20px',
+                  borderRadius: '8px',
+                  background: '#fef2f2',
+                  color: '#991b1b',
+                  fontWeight: '700',
+                  textAlign: 'center'
+                }}>
+                  ✕ Įvyko klaida siunčiant. Bandykite dar kartą arba skambinkite telefonu.
+                </div>
+              )}
+
               <div className="form-group" style={{ marginBottom: '16px' }}>
                 <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
                   Vardas / Įmonė
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  required
                   placeholder="Jūsų vardas arba įmonė"
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
                 />
@@ -241,7 +290,9 @@ export default function StatybosZurnaloPildymas() {
                 </label>
                 <input
                   type="text"
-                  placeholder="+370 626 33463"
+                  name="contact"
+                  required
+                  placeholder="+370 626 33463 arba info@..."
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
                 />
               </div>
@@ -251,14 +302,21 @@ export default function StatybosZurnaloPildymas() {
                   Pastabos / Objekto informacija
                 </label>
                 <textarea
+                  name="message"
+                  required
                   rows={3}
                   placeholder="Trumpai aprašykite objektą..."
                   style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none', resize: 'vertical' }}
                 ></textarea>
               </div>
 
-              <button type="button" className="button button-gold" style={{ width: '100%' }}>
-                Siųsti užklausą
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className="button button-gold"
+                style={{ width: '100%', opacity: status === 'submitting' ? 0.7 : 1 }}
+              >
+                {status === 'submitting' ? 'Siunčiama...' : 'Siųsti užklausą'}
               </button>
             </form>
           </div>
