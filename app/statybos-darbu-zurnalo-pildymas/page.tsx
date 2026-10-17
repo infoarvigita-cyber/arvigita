@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Statybos darbų žurnalo pildymas | Arvigita',
+  title: 'Statybos darbų žurnalo pildymas | MB „Arvigita“',
   description: 'Profesionalus elektroninio statybos darbų žurnalo pildymas, tvarkymas ir konsultacijos. Užtikriname atitiktį LR teisės aktams bei sklandų statinio pridavimo procesą.',
   keywords: [
     'statybos darbu zurnalo pildymas',
@@ -16,180 +16,259 @@ export const metadata: Metadata = {
 
 export default function StatybosZurnaloPildymas() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-      {/* Viršutinis puslapio skydelis (Hero Section) */}
-      <section className="relative bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-mx-auto text-center">
-          <span className="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-900/50 rounded-full border border-blue-700/50">
-            Profesionalios Statybos Paslaugos
-          </span>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
-            Elektroninio statybos darbų žurnalo pildymas ir tvarkymas
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-            Taupykite laiką ir išvenkite klaidų. Patikėkite statybos darbų žurnalo pildymą patyrusiems specialistams, užtikrinantiems visų normatyvų bei teisinių reikalavimų atitiktį.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#kontaktai"
-              className="inline-flex items-center justify-center px-6 py-3.5 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition duration-200 shadow-lg hover:shadow-xl"
-            >
-              Užsisakyti paslaugą / Konsultaciją
-            </a>
-            <a
-              href="tel:+37060000000"
-              className="inline-flex items-center justify-center px-6 py-3.5 border border-slate-700 text-base font-medium rounded-lg text-slate-200 bg-slate-800/80 hover:bg-slate-800 hover:text-white transition duration-200"
-            >
-              📞 Skambinti dabar
-            </a>
+    <div className="public-site">
+      {/* HERO SECTION */}
+      <section className="hero-premium">
+        <div className="hero-overlay"></div>
+        <div className="container">
+          <div className="hero-premium-inner">
+            <div className="hero-main">
+              <span className="hero-eyebrow">
+                PROFESIONALIOS STATYBOS PASLAUGOS
+              </span>
+              <h1>
+                Elektroninio statybos darbų žurnalo <span>pildymas</span>
+              </h1>
+              <p className="hero-lead">
+                Taupykite laiką ir išvenkite klaidų. Patikėkite statybos darbų žurnalo pildymą bei dokumentacijos tvarkymą MB „Arvigita“ specialistams, užtikrinantiems visų normatyvų ir teisinių reikalavimų atitiktį.
+              </p>
+              <div className="hero-actions">
+                <a href="#kontaktai" className="button button-gold">
+                  Užsisakyti paslaugą
+                </a>
+                <a href="tel:+37062633463" className="button button-hero-secondary">
+                  📞 +370 626 33463
+                </a>
+              </div>
+            </div>
+
+            {/* HERO VISUAL CARD */}
+            <div className="hero-visual">
+              <div className="hero-visual-card">
+                <div className="hero-visual-top">
+                  <span>Elektroninis statybos žurnalas</span>
+                </div>
+                <div className="hero-screen">
+                  <div className="hero-screen-sidebar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <div className="hero-screen-content">
+                    <div className="screen-title"></div>
+                    <div className="screen-row">
+                      <i></i>
+                      <b></b>
+                    </div>
+                    <div className="screen-row">
+                      <i></i>
+                      <b></b>
+                    </div>
+                    <div className="screen-row">
+                      <i></i>
+                      <b></b>
+                    </div>
+                  </div>
+                </div>
+                <div className="hero-visual-caption">
+                  <strong>MB „Arvigita“</strong>
+                  <span>100% Teisinė atitiktis</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* HERO BENEFITS STRIP */}
+        <div className="container">
+          <div className="hero-benefits">
+            <div className="hero-benefit">
+              <div className="benefit-icon">✓</div>
+              <div>
+                <strong>Atitiktis STR</strong>
+                <span>Pagal visus LR teisės aktus</span>
+              </div>
+            </div>
+            <div className="hero-benefit">
+              <div className="benefit-icon">⏱</div>
+              <div>
+                <strong>Laiko taupymas</strong>
+                <span>Viskas sutvarkoma laiku</span>
+              </div>
+            </div>
+            <div className="hero-benefit">
+              <div className="benefit-icon">🏛</div>
+              <div>
+                <strong>Sklandus pridavimas</strong>
+                <span>Be papildomų rūpesčių</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pagrindinis turinys */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        {/* KODĖL VERTA RINKTIS */}
-        <section>
-          <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
-              Kodėl būtina profesionaliai pildyti statybos žurnalą?
-            </h2>
-            <p className="text-slate-600 mt-2 max-w-2xl mx-auto">
-              Statybos darbų žurnalas yra pagrindinis dokumentas, įrodantis atliktų darbų kokybę bei atitiktį projektui.
+      {/* MAIN CONTENT / PASLAUGOS INFROMAIJA */}
+      <section className="section edz-section">
+        <div className="container">
+          <div className="edz-copy" style={{ maxWidth: '850px', margin: '0 auto 60px' }}>
+            <span className="section-label">Apie paslaugą</span>
+            <h2>Kodėl verta patikėti žurnalo pildymą mums?</h2>
+            <p className="section-intro">
+              Statybos darbų žurnalas yra esminis dokumentas, įrodantis atliktų darbų kokybę bei atitiktį projektui. Netiksliai arba ne laiku užpildytas žurnalas gali stabdyti statinio pridavimo procedūras ar sukelti papildomų teisinių rizikų.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                📋
+          {/* KĄ APIMA PASLAUGA (FEATURE LIST) */}
+          <div className="feature-list-premium" style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <div className="feature-item">
+              <div className="feature-number">01</div>
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--ar-navy-900)', margin: '0 0 6px' }}>
+                  Paskyros ir žurnalo registravimas
+                </h3>
+                <p style={{ margin: 0, color: 'var(--ar-muted)', fontSize: '15px' }}>
+                  Sukuriame ir suadministruojame paskyrą elektroninio žurnalo sistemoje, užregistruojame sutarties šalis bei atsakingus asmenis.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Teisės aktų atitiktis</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Užtikriname, kad visi įrašai būtų atlikti laiku ir laikantis galiojančių LR statybos įstatymų bei STR reikalavimų.
-              </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                ⏱️
+            <div className="feature-item">
+              <div className="feature-number feature-number-teal">02</div>
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--ar-navy-900)', margin: '0 0 6px' }}>
+                  Kasdienis žurnalo pildymas
+                </h3>
+                <p style={{ margin: 0, color: 'var(--ar-muted)', fontSize: '15px' }}>
+                  Reguliariai fiksuojame atliekamus darbus, oro sąlygas, panaudotas medžiagas, mechanizmus bei darbuotojų skaičių objekte.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Laiko taupymas</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Jums nereikės gilintis į elektroninių sistemų specifiką – visus techninius ir biurokratinius procesus atliksime už vas.
-              </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-4">
-                🏛️
+            <div className="feature-item">
+              <div className="feature-number">03</div>
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--ar-navy-900)', margin: '0 0 6px' }}>
+                  Užslėptų darbų aktų tvarkymas
+                </h3>
+                <p style={{ margin: 0, color: 'var(--ar-muted)', fontSize: '15px' }}>
+                  Laiku parengiame užslėptų darbų ir paslėptų konstrukcijų patikrinimo aktus bei suderiname juos su technine priežiūra.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Sklandus pridavimas</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Kruopščiai parengta dokumentacija garantuoja greitą ir sklandų statinio atitikties deklaracijos patvirtinimą.
-              </p>
+            </div>
+
+            <div className="feature-item">
+              <div className="feature-number feature-number-teal">04</div>
+              <div>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', color: 'var(--ar-navy-900)', margin: '0 0 6px' }}>
+                  Atitikties deklaracijos ir sertifikatai
+                </h3>
+                <p style={{ margin: 0, color: 'var(--ar-muted)', fontSize: '15px' }}>
+                  Segame visų naudojamų statybos produktų atitikties deklaracijas, sertifikatus bei laboratorinių bandymų protokolus.
+                </p>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* PASLAUGŲ EIGA */}
-        <section className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-slate-200">
-          <h2 className="text-2xl font-bold mb-6 text-slate-900 border-b pb-4">
-            Ką apima statybos darbų žurnalo pildymo paslauga?
-          </h2>
-          <ul className="space-y-4">
-            {[
-              'Elektroninio žurnalo paskyros sukūrimas ir administravimas sistemoje',
-              'Sutarties šalių, vadovų ir atsakomybių priskyrimas bei registracija',
-              'Kasdienių statybos darbų, oro sąlygų ir panaudotų medžiagų žymėjimas',
-              'Užslėptų darbų aktų bei paslėptų konstrukcijų dokumentavimas',
-              'Būtinų atitikties deklaracijų, sertifikatų ir laboratorinių bandymų prisegimas',
-              'Konsultacijos ir pagalba bendraujant su statybos inspektoriais bei technine priežiūra'
-            ].map((item, index) => (
-              <li key={index} className="flex items-start gap-3">
-                <span className="text-blue-600 font-bold mt-1">✓</span>
-                <span className="text-slate-700 leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* KONTAKTAI IR UŽKLAUSOS FORMA */}
-        <section id="kontaktai" className="bg-slate-900 text-white p-8 sm:p-12 rounded-2xl shadow-xl">
-          <div className="max-w-3xl mx-auto text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              Susisiekite dėl žurnalo pildymo
-            </h2>
-            <p className="text-slate-300">
-              Turite klausimų ar norite gauti tikslų paslaugos pasiūlymą? Užpildykite užklausą arba susisiekite tiesiogiai.
+      {/* KONTAKTAI IR UŽKLAUSOS FORMA */}
+      <section id="kontaktai" className="section" style={{ background: 'var(--ar-navy-950)', color: '#ffffff' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 50px' }}>
+            <span className="section-label section-label-gold">SUSISIEKITE</span>
+            <h2 style={{ color: '#ffffff' }}>Turite klausimų ar norite gauti pasiūlymą?</h2>
+            <p style={{ color: '#b9cad6', marginTop: '14px', fontSize: '16px' }}>
+              Užpildykite užklausą arba susisiekite tiesiogiai nurodytais kontaktais.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-start">
-            {/* Kontaktinė informacija */}
-            <div className="space-y-6 bg-slate-800/60 p-6 rounded-xl border border-slate-700">
-              <h3 className="text-xl font-semibold text-blue-400">Kontaktai</h3>
-              <div className="space-y-4 text-slate-300">
-                <p className="flex items-center gap-3">
-                  <span className="text-xl">🏢</span>
-                  <span><strong>UAB „Arvigita“</strong></span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'start' }}>
+            {/* KONTAKTŲ KORTELĖ */}
+            <div style={{
+              background: 'var(--ar-navy-900)',
+              padding: '36px',
+              borderRadius: '16px',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              boxShadow: 'var(--ar-shadow)'
+            }}>
+              <h3 style={{ color: 'var(--ar-gold-450)', fontSize: '22px', fontWeight: '800', marginBottom: '24px' }}>
+                MB „Arvigita“
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', fontSize: '16px', color: '#d6e3ec' }}>
+                <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ color: 'var(--ar-gold-450)', fontSize: '20px' }}>📞</span>
+                  <a href="tel:+37062633463" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '700' }}>
+                    +370 626 33463
+                  </a>
                 </p>
-                <p className="flex items-center gap-3">
-                  <span className="text-xl">📞</span>
-                  <span><a href="tel:+37060000000" className="hover:text-white transition">+370 600 00000</a></span>
+                <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ color: 'var(--ar-gold-450)', fontSize: '20px' }}>✉️</span>
+                  <a href="mailto:info.arvigita@gmail.com" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '700' }}>
+                    info.arvigita@gmail.com
+                  </a>
                 </p>
-                <p className="flex items-center gap-3">
-                  <span className="text-xl">✉️</span>
-                  <span><a href="mailto:info@arvigita.lt" className="hover:text-white transition">info@arvigita.lt</a></span>
-                </p>
-                <p className="flex items-center gap-3">
-                  <span className="text-xl">🌐</span>
-                  <span><Link href="/" className="hover:text-white transition">www.arvigita.lt</Link></span>
+                <p style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ color: 'var(--ar-gold-450)', fontSize: '20px' }}>🌐</span>
+                  <Link href="/" style={{ color: '#ffffff', textDecoration: 'none', fontWeight: '700' }}>
+                    www.arvigita.lt
+                  </Link>
                 </p>
               </div>
             </div>
 
-            {/* Greita užklausa */}
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Vardas / Įmonė</label>
+            {/* FORMA */}
+            <form style={{
+              background: '#ffffff',
+              padding: '36px',
+              borderRadius: '16px',
+              color: 'var(--ar-text)',
+              boxShadow: 'var(--ar-shadow)'
+            }}>
+              <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
+                  Vardas / Įmonė
+                </label>
                 <input
                   type="text"
-                  placeholder="Jūsų vardas"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  placeholder="Jūsų vardas arba įmonė"
+                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">El. paštas arba Telefonas</label>
+
+              <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
+                  Telefonas arba el. paštas
+                </label>
                 <input
                   type="text"
-                  placeholder="+370 600 00000"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  placeholder="+370 626 33463"
+                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none' }}
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">Žinutė / Objekto informacija</label>
+
+              <div className="form-group" style={{ marginBottom: '20px' }}>
+                <label style={{ display: 'block', fontWeight: '700', marginBottom: '6px', fontSize: '14px' }}>
+                  Pastabos / Objekto informacija
+                </label>
                 <textarea
                   rows={3}
-                  placeholder="Trumpai aprašykite savo objektą..."
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  placeholder="Trumpai aprašykite objektą..."
+                  style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid #cbd5e1', outline: 'none', resize: 'vertical' }}
                 ></textarea>
               </div>
-              <button
-                type="button"
-                className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 shadow-md"
-              >
+
+              <button type="button" className="button button-gold" style={{ width: '100%' }}>
                 Siųsti užklausą
               </button>
             </form>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      {/* Puslapio apčia (Footer) */}
-      <footer className="bg-white border-t border-slate-200 py-8 text-center text-sm text-slate-500">
-        <div className="max-w-5xl mx-auto px-4">
-          <p>© {new Date().getFullYear()} UAB „Arvigita“. Visos teisės saugomos.</p>
+      {/* FOOTER */}
+      <footer style={{ background: 'var(--ar-navy-900)', borderTop: '1px solid rgba(255, 255, 255, 0.1)', padding: '24px 0', textAlign: 'center', color: '#b9cad6', fontSize: '14px' }}>
+        <div className="container">
+          <p style={{ margin: 0 }}>© {new Date().getFullYear()} MB „Arvigita“. Visos teisės saugomos.</p>
         </div>
       </footer>
     </div>
