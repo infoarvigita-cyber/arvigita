@@ -1,3 +1,6 @@
+'use client';
+
+import React, { useState } from 'react';
 import "./home-premium.css";
 
 const benefits = [
@@ -64,6 +67,54 @@ const processSteps = [
 ];
 
 export default function Home() {
+  const [name, setName] = useState('');
+  const [contact, setContact] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatusMessage(null);
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/info.arvigita@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          'Vardas / Įmonė': name,
+          'Kontaktai (Tel / El.paštas)': contact,
+          'Žinutė / Objekto info': message,
+          '_subject': `Nauja užklausa iš pagrindinio puslapio: ${name}`,
+          '_captcha': 'false'
+        })
+      });
+
+      if (res.ok) {
+        setStatusMessage({
+          type: 'success',
+          text: 'Ačiū! Jūsų užklausa sėkmingai išsiųsta. Susisieksime su jumis artimiausiu metu.'
+        });
+        setName('');
+        setContact('');
+        setMessage('');
+      } else {
+        throw new Error('Nepavyko išsiųsti žinutės.');
+      }
+    } catch (err) {
+      setStatusMessage({
+        type: 'error',
+        text: 'Įvyko klaida siunčiant užklausą. Prašome skambinti telefonu +370 626 33463 arba rašyti tiesiogiai el. paštu.'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="arv-site">
       {/* HEADER */}
@@ -639,7 +690,7 @@ export default function Home() {
                     Individualus dėmesys
                   </strong>
                   <p>
-                    Sprendimai pagal konkretaus kliento
+                    Sprendimai pagal konkretaus klienta
                     ir projekto poreikį.
                   </p>
                 </div>
@@ -649,12 +700,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* KONTAKTAI */}
+      {/* KONTAKTAI IR FORMA */}
       <section
         className="arv-section arv-contact"
         id="kontaktai"
       >
-        <div className="arv-container arv-contact-panel">
+        <div className="arv-container arv-contact-panel" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '32px', alignItems: 'start' }}>
           <div className="arv-contact-copy">
             <span className="arv-section-label">
               KONTAKTAI
@@ -672,42 +723,106 @@ export default function Home() {
               įvertinsime jūsų poreikį.
             </p>
 
-            <a
-              className="arv-button arv-button-gold"
-              href="/uzklausa"
-            >
+            <div className="arv-contact-details" style={{ marginTop: '24px' }}>
+              <a href="mailto:info.arvigita@gmail.com">
+                <span>✉</span>
+                <div>
+                  <small>EL. PAŠTAS</small>
+                  <strong>info.arvigita@gmail.com</strong>
+                </div>
+                <i>→</i>
+              </a>
+
+              <a href="tel:+37062633463" style={{ marginTop: '12px' }}>
+                <span>☎</span>
+                <div>
+                  <small>TELEFONAS</small>
+                  <strong>+370 626 33463</strong>
+                </div>
+                <i>→</i>
+              </a>
+            </div>
+          </div>
+
+          {/* ELA. PAŠTO UŽKLAUSOS FORMA */}
+          <form onSubmit={handleSubmit} style={{
+            background: 'var(--ar-navy-900, #092842)',
+            padding: '28px',
+            borderRadius: '16px',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)'
+          }}>
+            <h3 style={{ color: '#ffffff', fontSize: '20px', fontWeight: '700', marginBottom: '16px' }}>
               Pateikti užklausą
+            </h3>
+
+            {statusMessage && (
+              <div style={{
+                padding: '12px 16px',
+                borderRadius: '8px',
+                marginBottom: '16px',
+                fontSize: '14px',
+                fontWeight: '600',
+                background: statusMessage.type === 'success' ? '#dcfce7' : '#fee2e2',
+                color: statusMessage.type === 'success' ? '#166534' : '#991b1b',
+                border: `1px solid ${statusMessage.type === 'success' ? '#bbf7d0' : '#fecaca'}`
+              }}>
+                {statusMessage.text}
+              </div>
+            )}
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '6px', fontSize: '13px' }}>
+                Vardas / Įmonė
+              </label>
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Jūsų vardas arba įmonė"
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.05)', color: '#ffffff', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '14px' }}>
+              <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '6px', fontSize: '13px' }}>
+                Telefonas arba el. paštas
+              </label>
+              <input
+                type="text"
+                required
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+                placeholder="+370 626 33463 arba info@..."
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.05)', color: '#ffffff', outline: 'none', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div style={{ marginBottom: '18px' }}>
+              <label style={{ display: 'block', color: '#cbd5e1', fontWeight: '600', marginBottom: '6px', fontSize: '13px' }}>
+                Pastabos / Objekto informacija
+              </label>
+              <textarea
+                required
+                rows={3}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Trumpai aprašykite objektą..."
+                style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.05)', color: '#ffffff', outline: 'none', resize: 'vertical', boxSizing: 'border-box' }}
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="arv-button arv-button-gold"
+              style={{ width: '100%', cursor: loading ? 'not-allowed' : 'pointer', textAlign: 'center', opacity: loading ? 0.7 : 1, justifyContent: 'center' }}
+            >
+              {loading ? 'Siunčiama...' : 'Siųsti užklausą'}
               <span>→</span>
-            </a>
-          </div>
-
-          <div className="arv-contact-details">
-            <a href="mailto:info.arvigita@gmail.com">
-              <span>✉</span>
-
-              <div>
-                <small>EL. PAŠTAS</small>
-                <strong>
-                  info.arvigita@gmail.com
-                </strong>
-              </div>
-
-              <i>→</i>
-            </a>
-
-            <a href="tel:+37062633463">
-              <span>☎</span>
-
-              <div>
-                <small>TELEFONAS</small>
-                <strong>
-                  +370 626 33463
-                </strong>
-              </div>
-
-              <i>→</i>
-            </a>
-          </div>
+            </button>
+          </form>
         </div>
       </section>
 
@@ -735,7 +850,7 @@ export default function Home() {
 
           <a
             className="arv-button arv-button-gold arv-final-button"
-            href="/uzklausa"
+            href="#kontaktai"
           >
             Gauti pasiūlymą
             <span>→</span>
@@ -782,7 +897,7 @@ export default function Home() {
             <strong>Informacija</strong>
             <a href="#apie">Apie mus</a>
             <a href="#kontaktai">Kontaktai</a>
-            <a href="/uzklausa">
+            <a href="#kontaktai">
               Pateikti užklausą
             </a>
             <a href="/privatumo-politika">
@@ -805,7 +920,7 @@ export default function Home() {
 
         <div className="arv-container arv-footer-bottom">
           <p>
-            © 2026 MB „Arvigita“. Visos teisės
+            © {new Date().getFullYear()} MB „Arvigita“. Visos teisės
             saugomos.
           </p>
 
