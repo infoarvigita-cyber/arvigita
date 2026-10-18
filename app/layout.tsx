@@ -4,21 +4,13 @@ import "./globals.css";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#061d30",
+  maximumScale: 1,
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://arvigita.lt"),
-  title: {
-    default: "MB „Arvigita“ | Elektroninio statybos darbų žurnalo pildymas",
-    template: "%s | MB „Arvigita“",
-  },
-  description:
-    "Elektroninio statybos darbų žurnalo (EDŽ) pildymas ir administravimas.",
-  robots: {
-    index: true,
-    follow: true,
-  },
+  title: "MB „Arvigita“ | Elektroninio statybos darbų žurnalo pildymas",
+  description: "Elektroninio statybos darbų žurnalo (EDŽ) pildymas ir administravimas.",
 };
 
 export default function RootLayout({
