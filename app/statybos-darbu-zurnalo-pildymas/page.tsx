@@ -20,9 +20,9 @@ export default function StatybosZurnaloPildymas() {
   };
 
   return (
-    <div className="min-h-screen bg-[#061d30] text-slate-100 overflow-x-hidden">
+    <div className="w-full min-h-screen bg-[#061d30] text-slate-100 overflow-x-hidden font-sans">
       {/* HERO SECTION */}
-      <section className="relative px-4 py-12 md:py-24 bg-gradient-to-b from-[#061d30] to-[#04121f]">
+      <section className="relative px-4 py-12 md:py-20 bg-gradient-to-b from-[#061d30] to-[#04121f]">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             
