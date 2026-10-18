@@ -89,7 +89,7 @@ export default function Home() {
           'Vardas / Įmonė': name,
           'Kontaktai (Tel / El.paštas)': contact,
           'Žinutė / Objekto info': message,
-          '_subject': `Nauja užklausa iš pagrindinio puslapio (arvigita.lt): ${name}`,
+          '_subject': `Nauja užklausa dėl EDŽ pildymo: ${name}`,
           '_captcha': 'false'
         })
       });
@@ -744,7 +744,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* ELA. PAŠTO UŽKLAUSOS FORMA */}
+          {/* UŽKLAUSOS FORMA */}
           <form onSubmit={handleHomeSubmit} style={{
             background: 'var(--ar-navy-900, #092842)',
             padding: '28px',
