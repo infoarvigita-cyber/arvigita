@@ -73,7 +73,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleHomeSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setStatusMessage(null);
@@ -89,7 +89,7 @@ export default function Home() {
           'Vardas / Įmonė': name,
           'Kontaktai (Tel / El.paštas)': contact,
           'Žinutė / Objekto info': message,
-          '_subject': `Nauja užklausa iš pagrindinio puslapio: ${name}`,
+          '_subject': `Nauja užklausa iš pagrindinio puslapio (arvigita.lt): ${name}`,
           '_captcha': 'false'
         })
       });
@@ -149,7 +149,7 @@ export default function Home() {
 
             <a
               className="arv-nav-cta"
-              href="/uzklausa"
+              href="#kontaktai"
             >
               Pateikti užklausą
               <span>→</span>
@@ -188,7 +188,7 @@ export default function Home() {
             <div className="arv-hero-actions">
               <a
                 className="arv-button arv-button-gold"
-                href="/uzklausa"
+                href="#kontaktai"
               >
                 Pateikti užklausą
                 <span>→</span>
@@ -351,7 +351,7 @@ export default function Home() {
 
               <a
                 className="arv-button arv-button-gold"
-                href="/uzklausa"
+                href="#kontaktai"
               >
                 Gauti individualų pasiūlymą
                 <span>→</span>
@@ -490,7 +490,7 @@ export default function Home() {
                 <li>Pirminė apskaita</li>
               </ul>
 
-              <a href="/uzklausa">
+              <a href="#kontaktai">
                 Pateikti užklausą
                 <span>→</span>
               </a>
@@ -518,7 +518,7 @@ export default function Home() {
                 </li>
               </ul>
 
-              <a href="/uzklausa">
+              <a href="#kontaktai">
                 Pateikti užklausą
                 <span>→</span>
               </a>
@@ -544,7 +544,7 @@ export default function Home() {
                 </li>
               </ul>
 
-              <a href="/uzklausa">
+              <a href="#kontaktai">
                 Pateikti užklausą
                 <span>→</span>
               </a>
@@ -568,7 +568,7 @@ export default function Home() {
 
               <a
                 className="arv-card-button"
-                href="/uzklausa"
+                href="#kontaktai"
               >
                 Gauti pasiūlymą
                 <span>→</span>
@@ -690,7 +690,7 @@ export default function Home() {
                     Individualus dėmesys
                   </strong>
                   <p>
-                    Sprendimai pagal konkretaus klienta
+                    Sprendimai pagal konkretaus kliento
                     ir projekto poreikį.
                   </p>
                 </div>
@@ -745,7 +745,7 @@ export default function Home() {
           </div>
 
           {/* ELA. PAŠTO UŽKLAUSOS FORMA */}
-          <form onSubmit={handleSubmit} style={{
+          <form onSubmit={handleHomeSubmit} style={{
             background: 'var(--ar-navy-900, #092842)',
             padding: '28px',
             borderRadius: '16px',
