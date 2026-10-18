@@ -16,7 +16,6 @@ export default function StatybosZurnaloPildymas() {
     setStatusMessage(null);
 
     try {
-      // Siunčiame užklausą į nemokamą ir patikimą FormSubmit tarnybą (nukreipia į info.arvigita@gmail.com)
       const res = await fetch('https://formsubmit.co/ajax/info.arvigita@gmail.com', {
         method: 'POST',
         headers: {
@@ -28,14 +27,14 @@ export default function StatybosZurnaloPildymas() {
           'Kontaktai (Tel / El.paštas)': contact,
           'Žinutė / Objekto info': message,
           '_subject': `Nauja užklausa dėl EDŽ pildymo: ${name}`,
-          '_captcha': 'false' // Išjungia papildomus kodo tikrinimus lankytojui
+          '_captcha': 'false'
         })
       });
 
       if (res.ok) {
         setStatusMessage({
           type: 'success',
-          text: 'Ačiū! Jūsų užklausa sėkmingai išsiųsta. Susisieksime su mumis artimiausiu metu.'
+          text: 'Ačiū! Jūsų užklausa sėkmingai išsiųsta. Susisieksime su jumis artimiausiu metu.'
         });
         setName('');
         setContact('');
@@ -55,7 +54,6 @@ export default function StatybosZurnaloPildymas() {
 
   return (
     <div className="public-site">
-      {/* Tiesioginis CSS mobiliesiems ekranams */}
       <style jsx global>{`
         @media (max-width: 900px) {
           .hero-premium-inner {
@@ -133,7 +131,6 @@ export default function StatybosZurnaloPildymas() {
               </div>
             </div>
 
-            {/* HERO VISUAL CARD */}
             <div className="hero-visual">
               <div className="hero-visual-card">
                 <div className="hero-visual-top">
@@ -170,7 +167,6 @@ export default function StatybosZurnaloPildymas() {
           </div>
         </div>
 
-        {/* HERO BENEFITS STRIP */}
         <div className="container">
           <div className="hero-benefits">
             <div className="hero-benefit">
@@ -265,7 +261,6 @@ export default function StatybosZurnaloPildymas() {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', alignItems: 'start' }}>
-            {/* KONTAKTŲ KORTELĖ */}
             <div style={{
               background: 'var(--ar-navy-900, #092842)',
               padding: '24px',
@@ -298,7 +293,6 @@ export default function StatybosZurnaloPildymas() {
               </div>
             </div>
 
-            {/* FORMA */}
             <form onSubmit={handleSubmit} style={{
               background: '#ffffff',
               padding: '24px',
@@ -376,7 +370,6 @@ export default function StatybosZurnaloPildymas() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer style={{ background: 'var(--ar-navy-900, #092842)', borderTop: '1px solid rgba(255, 255, 255, 0.1)', padding: '20px 0', textAlign: 'center', color: '#b9cad6', fontSize: '13px' }}>
         <div className="container">
           <p style={{ margin: 0 }}>© {new Date().getFullYear()} MB „Arvigita“. Visos teisės saugomos.</p>
