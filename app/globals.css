@@ -12213,4 +12213,65 @@ a {
 
     width: 218px;
   }
+}/* Mobiliojo ekrano pritaikymai (Responsive fixes) */
+@media (max-width: 768px) {
+  /* Pagrindiniai konteineriai */
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Hero sekcija mobiliesiems */
+  .hero-premium {
+    padding: 40px 0 !important;
+  }
+
+  .hero-premium-inner {
+    flex-direction: column !important;
+    gap: 30px !important;
+  }
+
+  .hero-main h1 {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-lead {
+    font-size: 15px !important;
+  }
+
+  .hero-actions {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .hero-actions .button {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* Vizualinė kortelė telefone */
+  .hero-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero-benefits {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Turinio kortelės ir elementai */
+  .feature-item {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* Formos ir kontaktų blokai */
+  #kontaktai form,
+  #kontaktai > div > div > div {
+    padding: 20px !important;
+  }
 }
