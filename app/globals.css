@@ -12274,4 +12274,32 @@ a {
   #kontaktai > div > div > div {
     padding: 20px !important;
   }
+}/* --- MOBILIOS VERSION FIX --- */
+@media (max-width: 991px) {
+  .hero-premium-inner {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  .hero-main {
+    max-width: 100% !important;
+  }
+  .hero-lead {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .hero-actions {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+  }
+  .hero-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 30px !important;
+  }
+  .hero-benefits {
+    grid-template-columns: 1fr !important;
+  }
+  .feature-item {
+    flex-direction: column !important;
+  }
 }
